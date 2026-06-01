@@ -1,0 +1,31 @@
+import { Navigate } from "react-router-dom"
+
+function ProtectedRoute({
+  children,
+  role,
+}) {
+
+  const token = localStorage.getItem("token")
+
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  )
+
+  // NOT LOGGED IN
+  if (!token) {
+
+    return <Navigate to="/login" />
+
+  }
+
+  // ROLE CHECK
+  if (role && user?.role !== role) {
+
+    return <Navigate to="/jobs" />
+
+  }
+
+  return children
+}
+
+export default ProtectedRoute
