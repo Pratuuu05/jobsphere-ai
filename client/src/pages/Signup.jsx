@@ -29,7 +29,7 @@ function Signup() {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "http://jobsphere-ai.onrender.com/api/auth/register",
         formData
       )
 

@@ -16,7 +16,7 @@ function Jobs() {
       try {
 
         const response = await axios.get(
-          "http://localhost:5000/api/jobs"
+          "http://jobsphere-ai.onrender.com/api/jobs"
         )
 
         setJobs(response.data)
