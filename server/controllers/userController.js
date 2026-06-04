@@ -1,7 +1,54 @@
-const pdfParse = require("pdf-parse/lib/pdf-parse.js")
+const pdfParse = require("pdf-parse")
 const User = require("../models/User")
 const SavedJob = require("../models/SavedJob")
 const Job = require("../models/Job")
+
+const keywords = [
+  "react",
+  "node",
+  "express",
+  "mongodb",
+  "javascript",
+  "html",
+  "css",
+  "api",
+  "git",
+  "deployment",
+]
+
+const analyzeText = (resumeText) => {
+  const lowerText = resumeText.toLowerCase()
+
+  const matchedSkills = keywords.filter((skill) =>
+    lowerText.includes(skill)
+  )
+
+  const score = Math.min(100, matchedSkills.length * 10)
+
+  const suggestions = []
+
+  if (!lowerText.includes("project")) {
+    suggestions.push("Add more project details with measurable impact.")
+  }
+
+  if (!lowerText.includes("github")) {
+    suggestions.push("Add your GitHub profile link.")
+  }
+
+  if (!lowerText.includes("deployment")) {
+    suggestions.push("Mention deployed project links.")
+  }
+
+  if (!lowerText.includes("api")) {
+    suggestions.push("Mention REST API or backend integration experience.")
+  }
+
+  return {
+    score,
+    matchedSkills,
+    suggestions,
+  }
+}
 
 const getProfile = async (req, res) => {
   res.json(req.user)
@@ -86,44 +133,7 @@ const analyzeResume = async (req, res) => {
       return res.status(400).json({ message: "Resume text is required" })
     }
 
-    const keywords = [
-      "react",
-      "node",
-      "express",
-      "mongodb",
-      "javascript",
-      "html",
-      "css",
-      "api",
-      "git",
-      "deployment",
-    ]
-
-    const lowerText = resumeText.toLowerCase()
-
-    const matchedSkills = keywords.filter((skill) =>
-      lowerText.includes(skill)
-    )
-
-    const score = Math.min(100, matchedSkills.length * 10)
-
-    const suggestions = []
-
-    if (!lowerText.includes("project")) {
-      suggestions.push("Add more project details with measurable impact.")
-    }
-
-    if (!lowerText.includes("github")) {
-      suggestions.push("Add your GitHub profile link.")
-    }
-
-    if (!lowerText.includes("deployment")) {
-      suggestions.push("Mention deployed project links.")
-    }
-
-    if (!lowerText.includes("api")) {
-      suggestions.push("Mention REST API or backend integration experience.")
-    }
+    const { score, matchedSkills, suggestions } = analyzeText(resumeText)
 
     const user = await User.findById(req.user._id)
 
@@ -141,6 +151,47 @@ const analyzeResume = async (req, res) => {
     })
   } catch (error) {
     res.status(500).json({ message: error.message })
+  }
+}
+
+const uploadResumePDF = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "Please upload a PDF file" })
+    }
+
+    const data = await pdfParse(req.file.buffer)
+    const resumeText = data.text
+
+    if (!resumeText || resumeText.trim().length === 0) {
+      return res.status(400).json({
+        message:
+          "No readable text found in this PDF. Please upload a text-based PDF or paste your resume manually.",
+      })
+    }
+
+    const { score, matchedSkills, suggestions } = analyzeText(resumeText)
+
+    const user = await User.findById(req.user._id)
+
+    user.resumeText = resumeText
+    user.resumeScore = score
+    user.skills = [...new Set([...user.skills, ...matchedSkills])]
+
+    await user.save()
+
+    res.json({
+      score,
+      matchedSkills,
+      suggestions,
+      resumeText,
+      message: "Resume PDF analyzed successfully",
+    })
+  } catch (error) {
+    res.status(500).json({
+      message:
+        "This PDF could not be read. Please upload another PDF or paste your resume text manually.",
+    })
   }
 }
 
@@ -204,80 +255,14 @@ const generateInterviewQuestions = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
-const uploadResumePDF = async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ message: "Please upload a PDF file" })
-    }
 
-    const data = await pdfParse(req.file.buffer)
-    const resumeText = data.text
-
-    const keywords = [
-      "react",
-      "node",
-      "express",
-      "mongodb",
-      "javascript",
-      "html",
-      "css",
-      "api",
-      "git",
-      "deployment",
-    ]
-
-    const lowerText = resumeText.toLowerCase()
-
-    const matchedSkills = keywords.filter((skill) =>
-      lowerText.includes(skill)
-    )
-
-    const score = Math.min(100, matchedSkills.length * 10)
-
-    const suggestions = []
-
-    if (!lowerText.includes("project")) {
-      suggestions.push("Add more project details with measurable impact.")
-    }
-
-    if (!lowerText.includes("github")) {
-      suggestions.push("Add your GitHub profile link.")
-    }
-
-    if (!lowerText.includes("deployment")) {
-      suggestions.push("Mention deployed project links.")
-    }
-
-    if (!lowerText.includes("api")) {
-      suggestions.push("Mention REST API or backend integration experience.")
-    }
-
-    const user = await User.findById(req.user._id)
-
-    user.resumeText = resumeText
-    user.resumeScore = score
-    user.skills = [...new Set([...user.skills, ...matchedSkills])]
-
-    await user.save()
-
-    res.json({
-      score,
-      matchedSkills,
-      suggestions,
-      resumeText,
-      message: "Resume PDF analyzed successfully",
-    })
-  } catch (error) {
-    res.status(500).json({ message: error.message })
-  }
-}
 module.exports = {
   getProfile,
   updateProfile,
   saveJob,
   getSavedJobs,
   analyzeResume,
+  uploadResumePDF,
   getJobMatch,
   generateInterviewQuestions,
-  uploadResumePDF,
 }
