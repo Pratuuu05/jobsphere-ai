@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, "jobsphere_secret", {
+  return jwt.sign({ id }, process.env.JWT_SECRET || "jobsphere_secret", {
     expiresIn: "30d",
   })
 }

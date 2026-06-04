@@ -7,6 +7,7 @@ const connectDB = require("./config/db")
 const jobRoutes = require("./routes/jobRoutes")
 const applicationRoutes = require("./routes/applicationRoutes")
 const authRoutes = require("./routes/authRoutes")
+const userRoutes = require("./routes/userRoutes")
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use("/api/jobs", jobRoutes)
 app.use("/api/applications", applicationRoutes)
 app.use("/api/auth", authRoutes)
+app.use("/api/users", userRoutes)
 
 app.get("/", (req, res) => {
   res.send("API Running")

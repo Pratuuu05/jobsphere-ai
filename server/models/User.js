@@ -23,6 +23,31 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "employer"],
       default: "user",
     },
+
+    skills: {
+      type: [String],
+      default: [],
+    },
+
+    resumeText: {
+      type: String,
+      default: "",
+    },
+
+    resumeScore: {
+      type: Number,
+      default: 0,
+    },
+
+    location: {
+      type: String,
+      default: "",
+    },
+
+    bio: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,
