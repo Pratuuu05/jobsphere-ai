@@ -28,10 +28,10 @@ function Signup() {
 
     try {
 
-      const res = await axios.post(
-        "http://jobsphere-ai.onrender.com/api/auth/register",
-        formData
-      )
+     const res = await axios.post(
+       "https://jobsphere-ai.onrender.com/api/auth/register",
+       formData
+    )
 
       // SAVE TOKEN
       localStorage.setItem(

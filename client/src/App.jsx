@@ -11,6 +11,10 @@ import Dashboard from "./pages/Dashboard"
 import EmployerDashboard from "./pages/EmployerDashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Applications from "./pages/Applications"
+import Profile from "./pages/Profile"
+import SavedJobs from "./pages/SavedJobs"
+import ResumeAnalyzer from "./pages/ResumeAnalyzer"
+
 
 function App() {
   return (
@@ -20,16 +24,40 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route path="/login" element={<Login />} />
-
           <Route path="/signup" element={<Signup />} />
 
           <Route path="/jobs" element={<Jobs />} />
-
           <Route path="/jobs/:id" element={<JobDetails />} />
 
           <Route path="/dashboard" element={<Dashboard />} />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/saved-jobs"
+            element={
+              <ProtectedRoute>
+                <SavedJobs />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/resume-analyzer"
+            element={
+              <ProtectedRoute>
+                <ResumeAnalyzer />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/employer"
@@ -46,8 +74,14 @@ function App() {
               <ProtectedRoute role="employer">
                 <Applications />
               </ProtectedRoute>
-            }
+            } 
+          /> 
+          
+          <Route
+            path="/saved-jobs"
+            element={<SavedJobs />}
           />
+          
         </Routes>
       </div>
     </BrowserRouter>

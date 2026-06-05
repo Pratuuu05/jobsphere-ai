@@ -1,5 +1,68 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   overflow-x: hidden;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, #c4b5fd 0, transparent 28%),
+    radial-gradient(circle at 90% 20%, #93c5fd 0, transparent 30%),
+    radial-gradient(circle at 50% 90%, #f0abfc 0, transparent 25%),
+    linear-gradient(135deg, #f8f7ff, #eef6ff, #fff7fb);
+  color: #111827;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 30px 90px rgba(79, 70, 229, 0.16);
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #7c3aed, #2563eb, #ec4899);
+  color: white;
+  border-radius: 20px;
+  font-weight: 800;
+  transition: 0.25s ease;
+  box-shadow: 0 18px 40px rgba(124, 58, 237, 0.35);
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.dark-btn {
+  background: linear-gradient(135deg, #111827, #312e81);
+  color: white;
+  border-radius: 20px;
+  font-weight: 800;
+  transition: 0.25s ease;
+}
+
+.dark-btn:hover {
+  transform: translateY(-3px);
+}
+
+.neon-card {
+  background: linear-gradient(135deg, #111827, #312e81, #7c3aed);
+  color: white;
+  box-shadow: 0 30px 80px rgba(124, 58, 237, 0.35);
+}
+
+.soft-input {
+  border: 1px solid #ddd6fe;
+  border-radius: 20px;
+  padding: 16px 20px;
+  outline: none;
+  width: 100%;
+  background: rgba(255,255,255,0.85);
+}
+
+.soft-input:focus {
+  box-shadow: 0 0 0 5px #ddd6fe;
+  border-color: #8b5cf6;
 }

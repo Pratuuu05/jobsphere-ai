@@ -20,7 +20,7 @@ function ApplicationModal({ jobId, closeModal }) {
 
     try {
       await axios.post(
-        "http://jobsphere-ai.onrender.com/api/applications",
+        "https://jobsphere-ai.onrender.com/api/applications",
         {
           jobId,
           ...formData,

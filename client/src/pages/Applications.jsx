@@ -8,7 +8,7 @@ function Applications() {
     const fetchApplications = async () => {
       try {
         const res = await axios.get(
-          "http://jobsphere-ai.onrender.com/api/applications"
+          "https://jobsphere-ai.onrender.com/api/applications"
         )
 
         setApplications(res.data)

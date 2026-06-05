@@ -13,7 +13,7 @@ function EmployerDashboard() {
   })
 
   const fetchJobs = async () => {
-    const res = await axios.get("http://jobsphere-ai.onrender.com/api/jobs")
+    const res = await axios.get("https://jobsphere-ai.onrender.com/api/jobs")
     setJobs(res.data)
   }
 
@@ -32,7 +32,7 @@ function EmployerDashboard() {
     e.preventDefault()
 
     try {
-      await axios.post("http://jobsphere-ai.onrender.com/api/jobs", formData)
+      await axios.post("https://jobsphere-ai.onrender.com/api/jobs", formData)
 
       alert("Job Posted Successfully!")
 
@@ -53,7 +53,7 @@ function EmployerDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://jobsphere-ai.onrender.com/api/jobs/${id}`)
+      await axios.delete(`https://jobsphere-ai.onrender.com/api/jobs/${id}`)
 
       setJobs(jobs.filter((job) => job._id !== id))
 

@@ -22,7 +22,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://jobsphere-ai.onrender.com/api/auth/login",
+        "https://jobsphere-ai.onrender.com/api/auth/login",
         formData
       )
 

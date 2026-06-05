@@ -1,16 +1,20 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Navbar() {
+  const navigate = useNavigate()
+  const token = localStorage.getItem("token")
+  const user = JSON.parse(localStorage.getItem("user"))
+
   const handleLogout = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
-    window.location.href = "/login"
+    navigate("/login")
+    window.location.reload()
   }
 
   return (
     <nav className="bg-white/80 backdrop-blur-xl border-b border-zinc-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-
         <Link
           to="/"
           className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-blue-500 bg-clip-text text-transparent"
@@ -18,37 +22,53 @@ function Navbar() {
           JobSphere AI
         </Link>
 
-        <ul className="hidden lg:flex gap-7 text-zinc-700 font-medium">
+        <ul className="hidden lg:flex gap-6 text-zinc-700 font-medium">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/jobs">Jobs</Link></li>
-          <li><Link to="/dashboard">Dashboard</Link></li>
-          <li><Link to="/employer">Employer</Link></li>
-          <li><Link to="/applications">Applications</Link></li>
+
+          {token && (
+            <>
+              <li><Link to="/dashboard">Dashboard</Link></li>
+              <li><Link to="/profile">Profile</Link></li>
+              <li><Link to="/saved-jobs">Saved Jobs</Link></li>
+              <li><Link to="/resume-analyzer">AI Resume</Link></li>
+            </>
+          )}
+
+          {token && user?.role === "employer" && (
+            <>
+              <li><Link to="/employer">Employer</Link></li>
+              <li><Link to="/applications">Applications</Link></li>
+            </>
+          )}
         </ul>
 
         <div className="flex gap-3">
-          <Link
-            to="/login"
-            className="px-4 py-2 rounded-xl border border-zinc-300 hover:bg-zinc-100 transition"
-          >
-            Login
-          </Link>
+          {!token ? (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-xl border border-zinc-300 hover:bg-zinc-100 transition"
+              >
+                Login
+              </Link>
 
-          <Link
-            to="/signup"
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-500 text-white"
-          >
-            Sign Up
-          </Link>
-
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 rounded-xl bg-red-500 text-white"
-          >
-            Logout
-          </button>
+              <Link
+                to="/signup"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-500 text-white"
+              >
+                Sign Up
+              </Link>
+            </>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition"
+            >
+              Logout
+            </button>
+          )}
         </div>
-
       </div>
     </nav>
   )
