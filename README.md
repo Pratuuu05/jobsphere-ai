@@ -100,14 +100,23 @@ npm run dev
 
 ## 📸 Screenshots
 
-* Home Page
-* Jobs Page
-* Job Details Page
-* Dashboard
-* Profile Page
-* Resume Analyzer
+### Home Page
+![Home](screenshots/home.png)
 
-(Add screenshots here)
+### Jobs Page
+![Jobs](screenshots/jobs.png)
+
+### Job Details Page
+![Job Details](screenshots/job-details.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Profile Page
+![Profile](screenshots/profile.png)
+
+### Resume Analyzer
+![Resume Analyzer](screenshots/resume-analyzer.png)
 
 ## 🔮 Future Enhancements
 
