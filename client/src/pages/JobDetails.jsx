@@ -183,10 +183,20 @@ function JobDetails() {
             </button>
 
             <button
-              onClick={saveJob}
-              className="dark-btn px-8 py-4"
+              className="
+              bg-white
+             border-2
+             border-pink-200
+             text-pink-600
+             py-4
+             rounded-[20px]
+             font-bold
+             hover:bg-pink-50
+             transition
+             shadow-md
+             "
             >
-              Save Job ❤️
+             Save Job ❤️
             </button>
 
             <button

@@ -71,100 +71,120 @@ function Dashboard() {
     : 0
 
   return (
-    <div className="px-8 py-20 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        <div>
-          <span className="bg-blue-100 text-blue-700 px-5 py-2 rounded-full font-semibold">
-            Career Command Center
+    <div className="max-w-7xl mx-auto px-8 py-24">
+      <div className="text-center max-w-4xl mx-auto">
+        <span className="bg-white/80 border border-violet-200 text-violet-700 px-6 py-3 rounded-full font-bold shadow-sm">
+          📊 Career Command Center
+        </span>
+
+        <h1 className="text-6xl md:text-7xl font-black text-zinc-900 mt-7">
+          Your{" "}
+          <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-blue-500 bg-clip-text text-transparent">
+            Career Dashboard
           </span>
+        </h1>
 
-          <h1 className="text-6xl font-black text-zinc-900 mt-6">
-            Dashboard
-          </h1>
-
-          <p className="text-zinc-600 mt-4 text-xl">
-            Track your real applications, saved jobs, resume score and profile progress.
-          </p>
-        </div>
+        <p className="text-zinc-600 mt-6 text-xl">
+          Track your applications, saved jobs, resume score and profile progress.
+        </p>
 
         <Link
           to="/profile"
-          className="bg-gradient-to-r from-violet-600 to-blue-500 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg"
+          className="inline-block mt-8 bg-gradient-to-r from-violet-600 to-blue-500 text-white px-8 py-4 rounded-[20px] font-bold shadow-lg hover:scale-[1.02] transition"
         >
           Update Profile
         </Link>
       </div>
 
       <div className="grid md:grid-cols-4 gap-8 mt-16">
-        <div className="bg-white border border-zinc-200 rounded-3xl p-8 shadow-lg">
-          <h2 className="text-5xl font-black text-violet-600">
+        <div className="glass-card rounded-[32px] p-8 text-center">
+          <h2 className="text-6xl font-black text-violet-600">
             {applications.length}
           </h2>
-          <p className="text-zinc-600 mt-3 text-lg">Applications</p>
+          <p className="text-zinc-600 mt-3 text-lg font-semibold">
+            Applications
+          </p>
         </div>
 
-        <div className="bg-white border border-zinc-200 rounded-3xl p-8 shadow-lg">
-          <h2 className="text-5xl font-black text-blue-600">
+        <div className="glass-card rounded-[32px] p-8 text-center">
+          <h2 className="text-6xl font-black text-blue-600">
             {savedJobs.length}
           </h2>
-          <p className="text-zinc-600 mt-3 text-lg">Saved Jobs</p>
+          <p className="text-zinc-600 mt-3 text-lg font-semibold">
+            Saved Jobs
+          </p>
         </div>
 
-        <div className="bg-white border border-zinc-200 rounded-3xl p-8 shadow-lg">
-          <h2 className="text-5xl font-black text-green-600">
+        <div className="glass-card rounded-[32px] p-8 text-center">
+          <h2 className="text-6xl font-black text-green-600">
             {profile?.resumeScore || 0}
           </h2>
-          <p className="text-zinc-600 mt-3 text-lg">Resume Score</p>
+          <p className="text-zinc-600 mt-3 text-lg font-semibold">
+            Resume Score
+          </p>
         </div>
 
-        <div className="bg-white border border-zinc-200 rounded-3xl p-8 shadow-lg">
-          <h2 className="text-5xl font-black text-pink-600">
+        <div className="glass-card rounded-[32px] p-8 text-center">
+          <h2 className="text-6xl font-black text-pink-600">
             {profileCompletion}%
           </h2>
-          <p className="text-zinc-600 mt-3 text-lg">Profile Completion</p>
+          <p className="text-zinc-600 mt-3 text-lg font-semibold">
+            Profile Completion
+          </p>
         </div>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8 mt-16">
-        <div className="bg-white border border-zinc-200 rounded-[35px] p-8 shadow-lg">
-          <h2 className="text-3xl font-black text-zinc-900">
+        <div className="glass-card rounded-[35px] p-8">
+          <h2 className="text-4xl font-black text-zinc-900">
             AI Career Actions
           </h2>
 
           <div className="grid gap-4 mt-8">
             <Link
               to="/resume-analyzer"
-              className="bg-violet-600 text-white rounded-2xl px-6 py-4 font-semibold"
+              className="bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white rounded-[20px] px-6 py-4 font-bold shadow-lg hover:scale-[1.02] transition"
             >
               Analyze Resume
             </Link>
 
             <Link
               to="/jobs"
-              className="bg-zinc-900 text-white rounded-2xl px-6 py-4 font-semibold"
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-[20px] px-6 py-4 font-bold shadow-lg hover:scale-[1.02] transition"
             >
               Find Matching Jobs
             </Link>
 
             <Link
               to="/saved-jobs"
-              className="bg-blue-600 text-white rounded-2xl px-6 py-4 font-semibold"
+              className="bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-[20px] px-6 py-4 font-bold shadow-lg hover:scale-[1.02] transition"
             >
               View Saved Jobs
             </Link>
           </div>
         </div>
 
-        <div className="bg-white border border-zinc-200 rounded-[35px] p-8 shadow-lg">
-          <h2 className="text-3xl font-black text-zinc-900">
+        <div className="glass-card rounded-[35px] p-8">
+          <h2 className="text-4xl font-black text-zinc-900">
             Profile Snapshot
           </h2>
 
-          <div className="mt-8 space-y-4 text-lg">
-            <p><strong>Name:</strong> {profile?.name || "Not added"}</p>
-            <p><strong>Email:</strong> {profile?.email || "Not added"}</p>
-            <p><strong>Location:</strong> {profile?.location || "Not added"}</p>
-            <p><strong>Role:</strong> {profile?.role || "Not added"}</p>
+          <div className="mt-8 space-y-4 text-lg text-zinc-700">
+            <p>
+              <strong>Name:</strong> {profile?.name || "Not added"}
+            </p>
+
+            <p>
+              <strong>Email:</strong> {profile?.email || "Not added"}
+            </p>
+
+            <p>
+              <strong>Location:</strong> {profile?.location || "Not added"}
+            </p>
+
+            <p>
+              <strong>Role:</strong> {profile?.role || "Not added"}
+            </p>
           </div>
 
           <div className="mt-6">
@@ -175,7 +195,7 @@ function Dashboard() {
                 profile.skills.map((skill, index) => (
                   <span
                     key={index}
-                    className="bg-violet-100 text-violet-700 px-3 py-1 rounded-full"
+                    className="bg-violet-100 text-violet-700 px-3 py-1 rounded-full font-semibold"
                   >
                     {skill}
                   </span>

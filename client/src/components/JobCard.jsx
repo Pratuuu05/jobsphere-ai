@@ -53,13 +53,22 @@ function JobCard({ job }) {
             View Details
           </button>
         </Link>
-
-        <button
-          onClick={saveJob}
-          className="w-full bg-zinc-900 text-white py-4 rounded-2xl font-semibold shadow-lg hover:scale-[1.02] transition"
-        >
-          Save Job ❤️
-        </button>
+   <button
+     className="
+     bg-white
+     border-2
+     border-pink-200
+     text-pink-600
+     py-4
+     rounded-[20px]
+     font-bold
+     hover:bg-pink-50
+     transition
+     shadow-md
+          "
+   >
+    Save Job ❤️
+   </button>
       </div>
     </div>
   )
